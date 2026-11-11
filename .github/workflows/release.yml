@@ -121,7 +121,7 @@ jobs:
           cat *.sha256 > SHA256SUMS
           ls -l
 
-      - uses: actions/attest-build-provenance@v2
+      - uses: actions/attest-build-provenance@v4
         with:
           subject-path: |
             artifacts/*.tar.gz
