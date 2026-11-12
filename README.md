@@ -11,6 +11,13 @@ Fast, robust image → ICO converter written in Rust. Library + CLI.
 - `favicon` subcommand: apple-touch-icon, favicon 16/32, favicon.ico, android-chrome 192/512, site.webmanifest + HTML snippet
 - `inspect` ICO files, shell `completions`
 
+
+<p align="center">
+  <a href="https://raw.githubusercontent.com/cumulus13/png2ico/refs/heads/master/screenshot.png" target="_blank">
+    <img src="https://raw.githubusercontent.com/cumulus13/png2ico/refs/heads/master/screenshot.png" width="80%" alt="Powered by">
+  </a>
+</p>
+
 ## Install
 
 ```sh
