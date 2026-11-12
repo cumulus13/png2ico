@@ -4,6 +4,8 @@
 //! Description: 
 //! License: MIT
 
+mod cli_favicon;
+
 use anyhow::{bail, Context, Result};
 use clap::{ArgAction, Args, CommandFactory, Parser, Subcommand, ValueEnum};
 use clap_version_flag::colorful_version;
