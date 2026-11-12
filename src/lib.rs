@@ -18,6 +18,7 @@
 pub mod color;
 pub mod convert;
 pub mod error;
+pub mod favicon;
 pub mod ico;
 pub mod imaging;
 pub mod inputs;

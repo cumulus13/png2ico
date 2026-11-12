@@ -27,7 +27,7 @@ pub enum Encoding {
     Bmp,
 }
 
-fn encode_png(img: &RgbaImage) -> Result<Vec<u8>> {
+pub fn encode_png(img: &RgbaImage) -> Result<Vec<u8>> {
     let mut buf = Vec::new();
     PngEncoder::new_with_quality(&mut buf, CompressionType::Best, PngFilter::Adaptive).write_image(
         img.as_raw(),

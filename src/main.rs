@@ -43,6 +43,8 @@ struct Cli {
 enum Command {
     /// Convert images to ICO (default command)
     Convert(ConvertArgs),
+    /// Generate a full favicon package (favicon.io style)
+    Favicon(cli_favicon::FaviconArgs),
     /// Show the images stored inside ICO files
     Inspect {
         #[arg(required = true, value_name = "ICO")]
@@ -301,7 +303,7 @@ fn run_inspect(files: Vec<PathBuf>) -> Result<ExitCode> {
 /// Allow the legacy `png2ico file.png` form by inserting `convert`.
 fn preprocess_args() -> Vec<OsString> {
     let mut args: Vec<OsString> = std::env::args_os().collect();
-    const KNOWN: &[&str] = &["convert", "inspect", "sizes", "completions", "help", "-h", "--help", "-V", "--version"];
+    const KNOWN: &[&str] = &["convert", "favicon", "inspect", "sizes", "completions", "help", "-h", "--help", "-V", "--version"];
     if let Some(first) = args.get(1) {
         let s = first.to_string_lossy();
         if !KNOWN.contains(&s.as_ref()) {
@@ -338,6 +340,7 @@ fn main() -> ExitCode {
 
     let result = match cli.command {
         Command::Convert(a) => run_convert(a, cli.quiet),
+        Command::Favicon(a) => cli_favicon::run(a, cli.quiet),
         Command::Inspect { files } => run_inspect(files),
         Command::Sizes => {
             for (name, s) in [("all", SIZES_ALL), ("windows", SIZES_WINDOWS), ("favicon", SIZES_FAVICON)] {

@@ -145,7 +145,7 @@ fn write_atomic(path: &Path, data: &[u8]) -> Result<()> {
     Ok(())
 }
 
-fn emit(path: PathBuf, data: Vec<u8>, sizes: Vec<u32>, plan: &Plan) -> Result<Written> {
+pub(crate) fn emit(path: PathBuf, data: Vec<u8>, sizes: Vec<u32>, plan: &Plan) -> Result<Written> {
     if path.exists() && !plan.force {
         return Err(Error::AlreadyExists(path));
     }

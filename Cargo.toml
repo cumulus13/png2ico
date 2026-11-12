@@ -1,8 +1,8 @@
 [package]
 name = "png2ico"
-version = "1.0.2"
+version = "1.0.3"
 edition = "2021"
-rust-version = "1.80"
+rust-version = "1.85"
 authors = ["Hadi Cahyadi <cumulus13@gmail.com>"]
 description = "Fast, robust PNG/JPEG/WebP/BMP/GIF/TIFF to ICO converter with multi-size, PNG/BMP encoding, batch and parallel processing"
 documentation = "https://docs.rs/png2ico"

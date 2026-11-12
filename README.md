@@ -8,6 +8,7 @@ Fast, robust image → ICO converter written in Rust. Library + CLI.
 - Alpha-correct Lanczos3 resampling (no halos), `--fit contain|cover|stretch`, `--padding`, `--background`
 - Batch: files, directories (`-r`), glob patterns (works on Windows too), parallel
 - Safe: atomic writes, no overwrite without `--force`, `--dry-run`
+- `favicon` subcommand: apple-touch-icon, favicon 16/32, favicon.ico, android-chrome 192/512, site.webmanifest + HTML snippet
 - `inspect` ICO files, shell `completions`
 
 ## Install
@@ -27,6 +28,7 @@ png2ico logo.png -s 16,32,256 -S -o app.ico
 png2ico "assets/*.png" -d out/ -S -f      # batch
 png2ico assets/ -r -S --fit cover --padding 8
 png2ico logo.png --background "#ffffff" --encoding png -S
+png2ico favicon logo.png -d public --name "My App"   # favicon.io-style package
 png2ico inspect logo.ico
 png2ico completions bash > /etc/bash_completion.d/png2ico
 ```
