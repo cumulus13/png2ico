@@ -27,7 +27,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: ${{ github.ref_name }}
       - uses: dtolnay/rust-toolchain@stable
@@ -52,7 +52,7 @@ jobs:
     name: Format & Clippy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
@@ -72,7 +72,7 @@ jobs:
         # macos-latest is Apple Silicon; macos-13 (Intel) has been retired.
         os: [ubuntu-latest, ubuntu-24.04-arm, windows-latest, macos-latest]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
       - run: cargo test --all-features
@@ -86,7 +86,7 @@ jobs:
     env:
       CARGO_RESOLVER_INCOMPATIBLE_RUST_VERSIONS: fallback
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
       - run: rustup toolchain install 1.85 --profile minimal
       - name: Generate MSRV-compatible lockfile
@@ -102,7 +102,7 @@ jobs:
     name: Security audit
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
       - uses: taiki-e/install-action@v2
         with:
