@@ -14,7 +14,7 @@ Fast, robust image → ICO converter written in Rust. Library + CLI.
 
 <p align="center">
   <a href="https://raw.githubusercontent.com/cumulus13/png2ico/refs/heads/master/screenshot.png" target="_blank">
-    <img src="https://raw.githubusercontent.com/cumulus13/png2ico/refs/heads/master/screenshot.png" width="80%" alt="Powered by">
+    <img src="https://raw.githubusercontent.com/cumulus13/png2ico/refs/heads/master/screenshot.png" width="80%" alt="PNG2ICO">
   </a>
 </p>
 
