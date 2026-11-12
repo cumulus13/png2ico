@@ -1,20 +1,20 @@
 //! File: src\main.rs
 //! Author: Hadi Cahyadi <cumulus13@gmail.com>
 //! Date: 2026-11-12
-//! Description: 
+//! Description:
 //! License: MIT
 
 mod cli_favicon;
 
 use anyhow::{bail, Context, Result};
 use clap::{ArgAction, Args, CommandFactory, Parser, Subcommand, ValueEnum};
-use clap_version_flag::colorful_version;
 use clap_color_help::default_styles;
 use clap_complete::Shell;
+use clap_version_flag::colorful_version;
 use png2ico::inputs::collect_inputs;
 use png2ico::{
-    convert_file, read_directory, Color, Encoding, EntryFormat, Fit, Layout, Options, Plan,
-    SIZES_ALL, SIZES_FAVICON, SIZES_WINDOWS,
+    convert_file, read_directory, Color, Encoding, EntryFormat, Fit, Layout, Options, Plan, SIZES_ALL,
+    SIZES_FAVICON, SIZES_WINDOWS,
 };
 use rayon::prelude::*;
 use std::ffi::OsString;
@@ -233,11 +233,7 @@ fn run_convert(a: ConvertArgs, quiet: bool) -> Result<ExitCode> {
         dry_run: a.dry_run,
     };
 
-    let results: Vec<_> = collected
-        .files
-        .par_iter()
-        .map(|f| (f, convert_file(f, &opts, &plan)))
-        .collect();
+    let results: Vec<_> = collected.files.par_iter().map(|f| (f, convert_file(f, &opts, &plan))).collect();
 
     let mut converted = 0usize;
     for (file, res) in results {
@@ -284,13 +280,25 @@ fn run_inspect(files: Vec<PathBuf>) -> Result<ExitCode> {
         };
         match read_directory(&data) {
             Ok(entries) => {
-                println!("{} ({} image{})", f.display(), entries.len(), if entries.len() == 1 { "" } else { "s" });
+                println!(
+                    "{} ({} image{})",
+                    f.display(),
+                    entries.len(),
+                    if entries.len() == 1 { "" } else { "s" }
+                );
                 for e in entries {
                     let fmt = match e.format {
                         EntryFormat::Png => "PNG",
                         EntryFormat::Bmp => "BMP",
                     };
-                    println!("  {:>3}x{:<3}  {:>2} bpp  {}  {}", e.width, e.height, e.bits_per_pixel, fmt, human(u64::from(e.bytes)));
+                    println!(
+                        "  {:>3}x{:<3}  {:>2} bpp  {}  {}",
+                        e.width,
+                        e.height,
+                        e.bits_per_pixel,
+                        fmt,
+                        human(u64::from(e.bytes))
+                    );
                 }
             }
             Err(e) => {
@@ -305,7 +313,8 @@ fn run_inspect(files: Vec<PathBuf>) -> Result<ExitCode> {
 /// Allow the legacy `png2ico file.png` form by inserting `convert`.
 fn preprocess_args() -> Vec<OsString> {
     let mut args: Vec<OsString> = std::env::args_os().collect();
-    const KNOWN: &[&str] = &["convert", "favicon", "inspect", "sizes", "completions", "help", "-h", "--help", "-V", "--version"];
+    const KNOWN: &[&str] =
+        &["convert", "favicon", "inspect", "sizes", "completions", "help", "-h", "--help", "-V", "--version"];
     if let Some(first) = args.get(1) {
         let s = first.to_string_lossy();
         if !KNOWN.contains(&s.as_ref()) {

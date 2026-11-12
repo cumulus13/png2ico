@@ -6,7 +6,8 @@ use png2ico::{read_directory, Error};
 fn generates_full_package() {
     let d = tempfile::tempdir().unwrap();
     let src = RgbaImage::from_pixel(600, 400, Rgba([20, 120, 220, 255]));
-    let opts = FaviconOptions { name: "My \"App\"".into(), short_name: "App".into(), ..FaviconOptions::default() };
+    let opts =
+        FaviconOptions { name: "My \"App\"".into(), short_name: "App".into(), ..FaviconOptions::default() };
 
     let written = generate_favicons(&src, d.path(), &opts).unwrap();
     assert_eq!(written.len(), 7);

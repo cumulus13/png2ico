@@ -21,7 +21,9 @@ pub enum Error {
     #[error("output already exists (use --force to overwrite): {}", .0.display())]
     AlreadyExists(PathBuf),
 
-    #[error("invalid color `{0}`: expected #RGB, #RGBA, #RRGGBB, #RRGGBBAA or a name (transparent, white, black)")]
+    #[error(
+        "invalid color `{0}`: expected #RGB, #RGBA, #RRGGBB, #RRGGBBAA or a name (transparent, white, black)"
+    )]
     InvalidColor(String),
 
     #[error("invalid ICO file: {0}")]
