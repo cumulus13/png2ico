@@ -116,7 +116,11 @@ pub fn render_all(src: &RgbaImage, opts: &Options) -> Result<Vec<(u32, RgbaImage
     if !opts.allow_upscale {
         let filtered: Vec<u32> = sizes.iter().copied().filter(|&s| s <= longest).collect();
         if filtered.is_empty() {
-            warn!("source ({}x{}) is smaller than every requested size; upscaling anyway", src.width(), src.height());
+            warn!(
+                "source ({}x{}) is smaller than every requested size; upscaling anyway",
+                src.width(),
+                src.height()
+            );
         } else {
             sizes = filtered;
         }
@@ -164,15 +168,9 @@ pub fn convert_file(input: &Path, opts: &Options, plan: &Plan) -> Result<Vec<Wri
     debug!("loaded {} ({}x{})", input.display(), src.width(), src.height());
     let rendered = render_all(&src, opts)?;
 
-    let stem = input
-        .file_stem()
-        .map(|s| s.to_string_lossy().into_owned())
-        .unwrap_or_else(|| "icon".to_string());
-    let dir = plan
-        .out_dir
-        .clone()
-        .or_else(|| input.parent().map(Path::to_path_buf))
-        .unwrap_or_default();
+    let stem =
+        input.file_stem().map(|s| s.to_string_lossy().into_owned()).unwrap_or_else(|| "icon".to_string());
+    let dir = plan.out_dir.clone().or_else(|| input.parent().map(Path::to_path_buf)).unwrap_or_default();
 
     match plan.layout {
         Layout::Single => {

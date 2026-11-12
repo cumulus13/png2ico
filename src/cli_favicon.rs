@@ -123,7 +123,11 @@ pub fn run(a: FaviconArgs, quiet: bool) -> Result<ExitCode> {
         let verb = if a.dry_run { "would write" } else { "✓" };
         println!("{}", a.out_dir.display());
         for w in &written {
-            println!("  {verb} {} ({})", w.path.file_name().unwrap_or_default().to_string_lossy(), human(w.bytes));
+            println!(
+                "  {verb} {} ({})",
+                w.path.file_name().unwrap_or_default().to_string_lossy(),
+                human(w.bytes)
+            );
         }
         if !a.no_html {
             println!("\nAdd to your <head>:\n\n{}", html_snippet());

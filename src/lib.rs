@@ -25,8 +25,8 @@ pub mod inputs;
 
 pub use color::Color;
 pub use convert::{
-    convert_file, load_image, normalize_sizes, render_all, Layout, Options, Plan, Written,
-    SIZES_ALL, SIZES_FAVICON, SIZES_WINDOWS,
+    convert_file, load_image, normalize_sizes, render_all, Layout, Options, Plan, Written, SIZES_ALL,
+    SIZES_FAVICON, SIZES_WINDOWS,
 };
 pub use error::{Error, Result};
 pub use ico::{encode_ico, read_directory, Encoding, EntryFormat, IcoEntry, MAX_ICO_SIZE};

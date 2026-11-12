@@ -259,9 +259,7 @@ mod tests {
     fn decodes_with_independent_decoder() {
         for enc in [Encoding::Png, Encoding::Bmp] {
             let data = encode_ico(&[sample(32)], enc).unwrap();
-            let img = image::load_from_memory_with_format(&data, image::ImageFormat::Ico)
-                .unwrap()
-                .to_rgba8();
+            let img = image::load_from_memory_with_format(&data, image::ImageFormat::Ico).unwrap().to_rgba8();
             assert_eq!(img.dimensions(), (32, 32));
             assert_eq!(img.get_pixel(16, 16).0, [10, 200, 30, 255], "{enc:?}");
             assert_eq!(img.get_pixel(0, 0)[3], 0, "{enc:?}");
