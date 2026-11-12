@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main,master]
+    branches: [main, master]
   pull_request:
 
 permissions:
@@ -43,24 +43,37 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - run: cargo test --all-features
 
+  # Verifies `rust-version` in Cargo.toml is honest. A lockfile is generated
+  # with the MSRV-aware resolver so dependencies that need a newer compiler
+  # (e.g. edition 2024 crates) are not selected.
   msrv:
-    name: MSRV (1.80)
+    name: MSRV (1.85)
     runs-on: ubuntu-latest
+    env:
+      CARGO_RESOLVER_INCOMPATIBLE_RUST_VERSIONS: fallback
     steps:
       - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@1.80
+      - uses: dtolnay/rust-toolchain@stable
+      - run: rustup toolchain install 1.85 --profile minimal
+      - name: Generate MSRV-compatible lockfile
+        run: |
+          rm -f Cargo.lock
+          cargo +stable generate-lockfile
       - uses: Swatinem/rust-cache@v2
-      - run: cargo check --all-targets
+      - run: cargo +1.85 check --all-targets --locked
 
+  # Plain `cargo audit` (no write permissions needed), so it also works on
+  # Dependabot PRs, whose GITHUB_TOKEN is read-only.
   audit:
     name: Security audit
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      issues: write
-      checks: write
     steps:
       - uses: actions/checkout@v4
-      - uses: rustsec/audit-check@v2
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: taiki-e/install-action@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          tool: cargo-audit
+      - name: Audit
+        run: |
+          [ -f Cargo.lock ] || cargo generate-lockfile
+          cargo audit
