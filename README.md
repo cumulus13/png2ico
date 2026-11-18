@@ -61,10 +61,8 @@ convert_file("logo.png".as_ref(), &opts, &plan)?;
 cargo fmt && cargo clippy --all-targets && cargo test
 ```
 
-Release: bump `version` in `Cargo.toml`, then `git tag vX.Y.Z && git push --tags`.
-This triggers `release.yml` (binaries + GitHub Release) and `publish.yml` (crates.io, needs the `CARGO_REGISTRY_TOKEN` secret).
-
-License: MIT
+## License
+[MIT](LICENSE)
 
 ## 👤 Author
         
